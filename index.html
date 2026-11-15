@@ -1047,6 +1047,7 @@ textarea.note {
      예전 기록(식사·건강·엄마아빠 루틴/도장)은 조용히 버려요. */
   function normalizeState(raw) {
     const base = blankState();
+    boardDirty = false;
     if (!raw || typeof raw !== 'object') return base;
     const st = Object.assign({}, base, raw);
 
@@ -1066,8 +1067,20 @@ textarea.note {
         role: role
       };
     });
-    st.members.forEach((m) => { if (OLD_SUBS[m.sub]) m.sub = OLD_SUBS[m.sub]; });
+    st.members.forEach((m) => { if (OLD_SUBS[m.sub]) { m.sub = OLD_SUBS[m.sub]; boardDirty = true; } });
     const kids = childIdsOf(st);
+
+    /* 정리해야 할 예전 기록이 남아 있는지 살펴봐요 (정리 뒤 가족에게 한 번 올리려고) */
+    if (['meals', 'mealMemo', 'health', 'missionTotal'].some((k) => raw[k] !== undefined)) boardDirty = true;
+    if (['fixed', 'routines', 'todos', 'missions'].some((k) => {
+      const bucket = raw[k];
+      if (!bucket || typeof bucket !== 'object') return false;
+      if (k === 'fixed') return Object.keys(bucket).some((id) => kids.indexOf(id) < 0);
+      return Object.keys(bucket).some((day) => bucket[day] && typeof bucket[day] === 'object' &&
+        Object.keys(bucket[day]).some((id) => kids.indexOf(id) < 0));
+    })) boardDirty = true;
+    if ((Array.isArray(raw.stampLog) ? raw.stampLog : []).some((e) => e && kids.indexOf(e.memberId) < 0)) boardDirty = true;
+    if ((Array.isArray(raw.praise) ? raw.praise : []).some((p) => p && kids.indexOf(p.memberId) < 0)) boardDirty = true;
 
     /* 없어진 화면의 기록은 남기지 않아요 */
     ['meals', 'mealMemo', 'health', 'missionTotal'].forEach((k) => { delete st[k]; });
@@ -1190,8 +1203,8 @@ textarea.note {
       cal: kids.indexOf(active.cal) >= 0 ? active.cal : kids[0]
     };
     st.praiseTarget = kids.indexOf(raw.praiseTarget) >= 0 ? raw.praiseTarget : kids[0];
-    /* 예전 보드에서 올라온 기록은 생활 루틴을 한 번만 채워 넣어요 */
-    if (toInt(raw.upgraded, 0) < 2) upgradeBoard(st);
+    /* 예전 보드(v1)에서 올라온 기록은 생활 루틴을 한 번만 채워 넣어요 */
+    if (toInt(raw.v, 1) < 2) upgradeBoard(st);
     st.upgraded = 2;
     return st;
   }
@@ -1207,6 +1220,7 @@ textarea.note {
         defaults.filter((d) => !fx.length || d.kind === KIND_LIFE).forEach((d) => {
           if (!fx.some((f) => f.title === d.title)) {
             fx.push({ id: uid('fx'), title: d.title, tag: d.tag, stamp: d.stamp, kind: d.kind });
+            boardDirty = true;
           }
         });
       }
@@ -1219,6 +1233,7 @@ textarea.note {
               id: uid('rt'), title: d.title, tag: d.tag, stamp: d.stamp, kind: d.kind,
               done: false, fixedId: f ? f.id : null, logId: null
             });
+            boardDirty = true;
           }
         });
       }
@@ -1266,6 +1281,7 @@ textarea.note {
   let unsynced = false;
   let firstSnap = true;
   let applyingRemote = false;
+  let boardDirty = false;      /* 예전 기록을 정리했다면, 정리된 모습을 가족에게 한 번만 알려요 */
   let pendingRender = false;
   let pushTimer = null;
   let recentPushes = [];
@@ -1381,6 +1397,7 @@ textarea.note {
     persistLocal();
     scheduleRender();
     applyingRemote = false;
+    if (boardDirty) { boardDirty = false; pushNow(); }   /* 정리가 끝난 모습은 한 번만 올려요 */
   }
 
   function onRemoteValue(snap) {
