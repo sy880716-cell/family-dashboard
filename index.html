@@ -1117,12 +1117,13 @@ textarea.note {
       firstSnap = false;
       const localAt = toInt(state.updatedAt, 0);
       const remoteAt = toInt(remote && remote.updatedAt, 0);
-      /* 방이 비었거나 · 끊긴 사이에 쌓은 기록이 있거나 · 내 캐시가 더 최신이면 지금 기록을 올려요 */
-      if (!remote || unsynced || (hadLocalCache && localAt > remoteAt + 1000)) {
+      /* 방이 비었거나 · 이 기기에 쓰던 기록이 있고 그게 더 최신이면 지금 값을 올려요 */
+      if (!remote || (hadLocalCache && (unsynced || localAt > remoteAt + 1000))) {
         unsynced = false;
         pushNow();
         return;
       }
+      unsynced = false;
       lastRemoteSig = JSON.stringify(remote);
       applyRemote(remote);
       return;
