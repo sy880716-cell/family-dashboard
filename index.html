@@ -259,7 +259,8 @@ input, select, textarea { font-family: inherit; }
 .member-chip.on { border-color: #C4E3F7; background: #F1FAFE; color: #4A82A8; box-shadow: 0 0 0 2px rgba(196, 227, 247, 0.4); }
 .member-chip .avatar { width: 30px; height: 30px; border-radius: 11px; border: 0; }
 .member-chip.locked { opacity: 0.55; }
-.filter-row { padding-bottom: 6px; }
+.filter-row { flex-wrap: wrap; overflow: visible; padding-bottom: 6px; }
+.filter-row .chip { font-size: 11.5px; padding: 7px 10px; }
 
 .pill-flame {
   display: inline-flex; align-items: center; gap: 2px;
