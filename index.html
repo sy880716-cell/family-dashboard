@@ -786,6 +786,14 @@ textarea.note {
   ];
   const AVATAR_VALUES = AVATARS.map((a) => a.v);
 
+  /* 예전 보드의 소개 문구는 오늘에 맞게 다듬어요 */
+  const OLD_SUBS = {
+    '반짝반짝 첫째': '초등 4학년 · 반짝반짝 첫째',
+    '포동포동 둘째': '초등 3학년 · 포동포동 둘째',
+    '포근포근 우리집': '칭찬 별 담당',
+    '든든한 웃음': '든든한 응원단'
+  };
+
   /* 루틴은 두 갈래로만 나눠요 */
   const KIND_STUDY = 'study';
   const KIND_LIFE = 'life';
@@ -918,8 +926,15 @@ textarea.note {
     for (let i = 0; i < TODO_CATS.length; i++) if (TODO_CATS[i].v === cat) return TODO_CATS[i];
     return TODO_CATS[4];
   }
-  function normCat(cat) {
-    return CAT_VALUES.indexOf(cat) >= 0 ? cat : 'etc';
+  function normCat(cat, title) {
+    if (CAT_VALUES.indexOf(cat) >= 0) return cat;
+    /* 예전 기록은 분류가 없어서 이름으로 짐작해요 */
+    const t = String(title || '');
+    if (/학원/.test(t)) return 'academy';
+    if (/학교|알림장|선생님/.test(t)) return 'school';
+    if (/숙제|문제집|받아쓰기|연습/.test(t)) return 'homework';
+    if (/준비물|가방|챙기/.test(t)) return 'prep';
+    return 'etc';
   }
   function isDayKey(v) { return /^\d{4}-\d{2}-\d{2}$/.test(String(v || '')); }
   function missionIdxFor(childId, key) {
@@ -972,6 +987,7 @@ textarea.note {
       chat: [],
       chatLock: false,
       viewer: 'sia',
+      upgraded: 2,
       active: { routine: 'sia', schedule: 'sia', stamp: 'sia', cal: 'sia' },
       praiseTarget: 'sia'
     };
@@ -1049,6 +1065,7 @@ textarea.note {
         role: role
       };
     });
+    st.members.forEach((m) => { if (OLD_SUBS[m.sub]) m.sub = OLD_SUBS[m.sub]; });
     const kids = childIdsOf(st);
 
     /* 없어진 화면의 기록은 남기지 않아요 */
@@ -1101,7 +1118,7 @@ textarea.note {
         out[id] = (Array.isArray(src[id]) ? src[id] : []).filter((t) => t && typeof t === 'object' && t.title).map((t) => ({
           id: t.id || uid('td'),
           title: String(t.title).slice(0, 40),
-          cat: normCat(t.cat),
+          cat: normCat(t.cat, t.title),
           at: String(t.at || '').slice(0, 5),
           done: !!t.done
         }));
@@ -1172,6 +1189,39 @@ textarea.note {
       cal: kids.indexOf(active.cal) >= 0 ? active.cal : kids[0]
     };
     st.praiseTarget = kids.indexOf(raw.praiseTarget) >= 0 ? raw.praiseTarget : kids[0];
+    /* 예전 보드에서 올라온 기록은 생활 루틴을 한 번만 채워 넣어요 */
+    if (toInt(raw.upgraded, 0) < 2) upgradeBoard(st);
+    st.upgraded = 2;
+    return st;
+  }
+
+  /* 공부 루틴만 있던 예전 기록에 생활 루틴을 더해 두 갈래를 갖추게 해요 */
+  function upgradeBoard(st) {
+    const key = tKey();
+    childIdsOf(st).forEach((id) => {
+      const defaults = DEFAULT_FIXED[id] || [];
+      if (!Array.isArray(st.fixed[id])) st.fixed[id] = [];
+      const fx = st.fixed[id];
+      if (!fx.length || !fx.some((f) => f.kind === KIND_LIFE)) {
+        defaults.filter((d) => !fx.length || d.kind === KIND_LIFE).forEach((d) => {
+          if (!fx.some((f) => f.title === d.title)) {
+            fx.push({ id: uid('fx'), title: d.title, tag: d.tag, stamp: d.stamp, kind: d.kind });
+          }
+        });
+      }
+      const list = st.routines[key] && st.routines[key][id];
+      if (Array.isArray(list) && !list.some((i) => i.kind === KIND_LIFE)) {
+        defaults.filter((d) => !list.length || d.kind === KIND_LIFE).forEach((d) => {
+          if (!list.some((i) => i.title === d.title)) {
+            const f = fx.find((x) => x.title === d.title);
+            list.push({
+              id: uid('rt'), title: d.title, tag: d.tag, stamp: d.stamp, kind: d.kind,
+              done: false, fixedId: f ? f.id : null, logId: null
+            });
+          }
+        });
+      }
+    });
     return st;
   }
 
@@ -1840,7 +1890,7 @@ textarea.note {
   }
 
   function catMatches(t) {
-    return schedFilter === 'all' || normCat(t.cat) === schedFilter;
+    return schedFilter === 'all' || normCat(t.cat, t.title) === schedFilter;
   }
 
   function filterChipsHTML() {
