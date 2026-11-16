@@ -437,19 +437,6 @@ input, select, textarea { font-family: inherit; }
 }
 .add-dashed:active { background: #FFF8E6; }
 
-.timer-card { background: linear-gradient(160deg, #F5FAFE 0%, #FBFDFF 55%, #FFFCF4 100%); border-color: #DEEEF9; }
-.timer-box { margin-top: 4px; padding: 16px 12px; border: 2px dashed #D4E8F5; border-radius: 22px; background: rgba(255, 255, 255, 0.75); text-align: center; }
-.timer-tabs { display: inline-flex; gap: 4px; padding: 4px; background: #fff; border: 1px solid #DFEDF7; border-radius: 999px; box-shadow: var(--shadow-sm); }
-.timer-tabs button { border: 0; background: transparent; font: inherit; font-size: 12.5px; font-weight: 800; color: #89A0B2; padding: 8px 13px; border-radius: 999px; }
-.timer-tabs button.on { background: #EAF5FD; color: #4A82A8; box-shadow: inset 0 0 0 1px #CFE6F7; }
-.timer-hint { margin: 10px 0 0; font-size: 11.5px; font-weight: 800; color: #9BB0BE; }
-.timer-display { margin: 2px 0 0; font-size: 52px; line-height: 1.15; font-weight: 900; color: #35618A; letter-spacing: -2.5px; font-variant-numeric: tabular-nums; }
-.timer-display.done { color: #D98397; }
-.preset-row { display: flex; gap: 6px; flex-wrap: wrap; justify-content: center; align-items: center; margin-top: 12px; }
-.custom-min { display: flex; align-items: center; gap: 2px; border: 1px solid var(--line); border-radius: 999px; background: #fff; padding: 4px 10px; }
-.custom-min input { width: 52px; border: 0; outline: 0; font: inherit; font-size: 13px; font-weight: 800; color: #4A82A8; text-align: center; background: transparent; }
-.custom-min span { font-size: 11.5px; font-weight: 700; color: #9BB0BE; }
-
 /* ---------------- schedule ---------------- */
 .todo-card { border-radius: 24px; border: 1px solid var(--line); padding: 14px 13px; background: #fff; box-shadow: var(--shadow); }
 .todo-card.tone-sky { background: linear-gradient(170deg, #F7FCFF, #FFFDF8); border-color: #DEEEF9; }
@@ -597,13 +584,14 @@ textarea.note {
   border-top: 1px solid var(--line);
   padding: 6px 6px calc(6px + env(safe-area-inset-bottom));
 }
-.tabbar-inner { max-width: 480px; margin: 0 auto; display: grid; grid-template-columns: repeat(5, 1fr); gap: 2px; }
+.tabbar-inner { max-width: 480px; margin: 0 auto; display: grid; grid-template-columns: repeat(6, 1fr); gap: 1px; }
 .tab-btn {
-  display: flex; flex-direction: column; align-items: center; gap: 3px;
-  padding: 7px 1px 6px; border: 0; background: transparent; border-radius: 15px;
-  color: #A08E7C; font-size: 10.5px; font-weight: 800; letter-spacing: -0.3px;
+  display: flex; flex-direction: column; align-items: center; gap: 2px;
+  padding: 6px 0 5px; border: 0; background: transparent; border-radius: 13px;
+  color: #A08E7C; font-size: 9.5px; font-weight: 800; letter-spacing: -0.4px;
+  line-height: 1.2;
 }
-.tab-btn svg { width: 26px; height: 26px; display: block; opacity: 0.85; transition: transform 0.12s ease; }
+.tab-btn svg { width: 23px; height: 23px; display: block; opacity: 0.85; transition: transform 0.12s ease; }
 .tab-btn.on { background: #FFF2D2; color: #96701F; box-shadow: inset 0 0 0 1px #F4E5BB; }
 .tab-btn.on svg { opacity: 1; transform: translateY(-1px); }
 
@@ -674,6 +662,147 @@ textarea.note {
 .fixed-item .tag { margin-left: 0; }
 .fixed-item .mini-x { margin-left: auto; }
 
+/* ---------------- routine: 오늘의 영어단어 ---------------- */
+.word-card { background: linear-gradient(160deg, #F7FCF8 0%, #FCFEFC 55%, #FFFDF8 100%); border-color: #DFEEE2; }
+.word-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 10px; }
+.word-row {
+  display: flex; align-items: center; gap: 9px;
+  padding: 9px 10px; border-radius: 15px;
+  background: #fff; border: 1px solid #EAF1E9; box-shadow: 0 2px 8px rgba(150, 180, 155, 0.08);
+}
+.word-row.done { background: #F5FBF6; border-color: #D6EBDC; }
+.word-body { flex: 1 1 auto; min-width: 0; }
+.word-en { margin: 0; display: flex; align-items: center; gap: 5px; font-size: 16px; font-weight: 900; color: #3F6B52; letter-spacing: -0.2px; }
+.speak {
+  flex: 0 0 auto; width: 26px; height: 26px; padding: 0; border-radius: 9px;
+  border: 1px solid #CFE6D6; background: #F2FBF4; font-size: 12px; line-height: 1;
+}
+.speak:active { transform: scale(0.94); }
+.word-meaning { margin: 1px 0 0; font-size: 12.5px; font-weight: 900; color: #7A6857; }
+.word-ex { margin: 2px 0 0; font-size: 11px; font-weight: 600; color: #A08E7C; line-height: 1.45; word-break: break-word; }
+.word-check {
+  flex: 0 0 auto; min-width: 74px; padding: 8px 9px; border-radius: 999px;
+  border: 1px solid #DFD2BF; background: #FFFDF8; color: #A08A70;
+  font: inherit; font-size: 10.5px; font-weight: 900; line-height: 1.2;
+}
+.word-check.on { background: #E4F6E8; border-color: #BCE3C6; color: #3F8B5C; }
+
+.quiz-box { margin-top: 12px; padding: 13px 12px; border-radius: 20px; background: #FFFFFF; border: 1px solid #E3EEE5; box-shadow: var(--shadow-sm); }
+.quiz-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.quiz-dots { display: flex; gap: 4px; }
+.quiz-dot { width: 8px; height: 8px; border-radius: 50%; background: #EFE6D8; }
+.quiz-dot.now { background: #86C79B; box-shadow: 0 0 0 3px rgba(134, 199, 155, 0.2); }
+.quiz-dot.past { background: #CBE7D3; }
+.quiz-dot.next { background: #F1E9DC; }
+.quiz-count { font-size: 10.5px; font-weight: 900; color: #8FA396; white-space: nowrap; }
+.quiz-ask { margin: 9px 0 0; font-size: 11px; font-weight: 800; color: #9AAFA0; }
+.quiz-prompt { margin: 2px 0 0; font-size: 24px; font-weight: 900; color: #35644A; letter-spacing: -0.6px; }
+.quiz-opts { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; margin-top: 10px; }
+.quiz-opt {
+  padding: 11px 8px; border-radius: 14px; border: 1px solid #E7DFD2; background: #FFFDF8;
+  font: inherit; font-size: 13px; font-weight: 800; color: #6B5A4C; text-align: center;
+  word-break: keep-all;
+}
+.quiz-opt:active { transform: scale(0.98); }
+.quiz-opt.right { background: #E4F6E8; border-color: #BCE3C6; color: #3F8B5C; }
+.quiz-opt.wrong { background: #FFEDF1; border-color: #F8C9D5; color: #C4637E; }
+.quiz-feedback { margin: 10px 0 0; font-size: 12px; font-weight: 800; color: #A08E7C; text-align: center; }
+.quiz-feedback.ok { color: #3F8B5C; }
+.quiz-feedback.no { color: #C4637E; }
+.quiz-emoji { margin: 0; text-align: center; font-size: 30px; line-height: 1.2; }
+.quiz-score { margin: 2px 0 0; text-align: center; font-size: 14px; font-weight: 900; color: #5D4B3C; }
+.quiz-score b { color: #C77A2C; font-size: 18px; }
+.quiz-msg { margin: 6px 0 10px; text-align: center; font-size: 12px; font-weight: 700; color: #8A7A69; line-height: 1.5; }
+
+/* ---------------- snack ---------------- */
+.snack-summary { background: linear-gradient(165deg, #FFF9F0 0%, #FFFDF8 55%, #FFF7F2 100%); border-color: #F6E5D2; }
+.snack-summary.level-warn { background: linear-gradient(165deg, #FFF7EC 0%, #FFFDF8 60%, #FFF3E4 100%); border-color: #F3DDBC; }
+.snack-summary.level-danger { background: linear-gradient(165deg, #FFF0F2 0%, #FFFDF8 60%, #FFEDF0 100%); border-color: #F6D2DA; }
+.snack-badge {
+  font-size: 11.5px; font-weight: 900; padding: 5px 11px; border-radius: 999px;
+  border: 1px solid #DFD2BF; background: #FFFDF8; color: #8A7A69;
+}
+.snack-badge.level-good { background: #EAF8EE; border-color: #C3E6CE; color: #3F8B5C; }
+.snack-badge.level-warn { background: #FFF3E0; border-color: #F4DCB4; color: #B98335; }
+.snack-badge.level-danger { background: #FFE9EE; border-color: #F7C7D3; color: #C4526E; }
+.snack-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin: 4px 0 2px; }
+.snack-stat {
+  display: flex; flex-direction: column; align-items: center; gap: 1px;
+  padding: 8px 2px; border-radius: 13px; background: #FFFFFF;
+  border: 1px solid #F1E7D8;
+}
+.snack-stat .ss-num { font-size: 17px; font-weight: 900; color: #6B5A4C; letter-spacing: -0.6px; line-height: 1.15; }
+.snack-stat .ss-label { font-size: 9.5px; font-weight: 800; color: #AC9C8C; white-space: nowrap; }
+.snack-stat.big { background: #FFF7E4; border-color: #F2E1BC; }
+.snack-stat.big .ss-num { color: #C77A2C; font-size: 19px; }
+.cube-wall {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 4px;
+  min-height: 42px; margin: 11px 0 4px; padding: 9px;
+  border-radius: 15px; background: rgba(255, 255, 255, 0.8); border: 1px dashed #EFDDC6;
+}
+.cube-wall.hot { background: #FFF5F7; border-color: #F6CEDA; }
+.cube {
+  width: 13px; height: 13px; border-radius: 3px; flex: 0 0 auto;
+  background: linear-gradient(160deg, #FFFFFF 0%, #FFF3DC 46%, #F3E3C7 100%);
+  border: 1px solid #E4D3B4; box-shadow: inset 0 -1px 0 rgba(200, 175, 140, 0.5);
+}
+.cube-wall.hot .cube { background: linear-gradient(160deg, #FFFFFF 0%, #FFE6EC 46%, #F7C9D5 100%); border-color: #EDB9C7; }
+.cube-more { font-size: 10.5px; font-weight: 900; color: #C4526E; background: #FFE9EE; border-radius: 999px; padding: 2px 7px; }
+.cube-note { font-size: 11.5px; font-weight: 800; color: #B7A997; }
+.limit-line { display: flex; align-items: center; gap: 8px; margin-top: 7px; }
+.limit-line .bar { height: 9px; background: #F5EEE3; }
+.limit-line .bar i { background: linear-gradient(90deg, #F7D98E, #E8A25C); }
+.limit-line span { font-size: 10.5px; font-weight: 900; color: #A08A70; white-space: nowrap; }
+.snack-alert {
+  margin: 10px 0 0; padding: 9px 11px; border-radius: 13px;
+  font-size: 12px; font-weight: 900; line-height: 1.45;
+  background: #F4FBF5; border: 1px solid #D8EEDD; color: #4E8B63;
+}
+.snack-alert.level-warn { background: #FFF8EC; border-color: #F4E2C2; color: #B98335; }
+.snack-alert.level-danger { background: #FFF0F3; border-color: #F7CFDA; color: #C4526E; }
+
+.snack-search {
+  width: 100%; border: 1px solid #F1E7D8; border-radius: 15px; background: #fff;
+  padding: 11px 12px; font: inherit; font-size: 14px; color: #5D4B3C; outline: 0;
+  -webkit-appearance: none; appearance: none;
+}
+.snack-results { margin-top: 9px; }
+.snack-hint { margin: 0 0 6px; font-size: 10.5px; font-weight: 800; color: #B7A997; }
+.snack-none { padding: 10px 4px; font-size: 11.5px; font-weight: 700; color: #B7A997; line-height: 1.6; }
+.snack-hit {
+  display: flex; align-items: center; gap: 9px; width: 100%;
+  padding: 8px 9px; margin-bottom: 6px; border-radius: 14px;
+  border: 1px solid #F1E7D8; background: #FFFDF9; text-align: left; font: inherit;
+}
+.snack-hit:active { background: #FFF7E6; }
+.hit-emoji { font-size: 19px; flex: 0 0 auto; line-height: 1; }
+.hit-body { flex: 1; min-width: 0; display: block; }
+.hit-name { display: block; font-size: 13.5px; font-weight: 900; color: #5D4B3C; }
+.hit-meta { display: block; font-size: 10.5px; font-weight: 700; color: #A5947F; }
+.hit-add {
+  flex: 0 0 auto; width: 28px; height: 28px; border-radius: 10px;
+  display: grid; place-items: center; font-size: 16px; font-weight: 900;
+  background: #EAF6EE; color: #4E8B63; border: 1px solid #CFE8D7;
+}
+
+.snack-day { padding: 14px 13px; }
+.snack-item { display: flex; align-items: center; gap: 8px; padding: 9px 0; border-top: 1px dashed #F2E8DA; }
+.snack-item:first-of-type { border-top: 0; }
+.si-emoji { font-size: 18px; flex: 0 0 auto; line-height: 1; }
+.si-body { flex: 1 1 auto; min-width: 0; }
+.si-name { margin: 0; font-size: 13.5px; font-weight: 900; color: #5D4B3C; }
+.si-unit { font-size: 10px; font-weight: 800; color: #AC9C8C; }
+.si-meta { margin: 1px 0 0; font-size: 10.5px; font-weight: 700; color: #A5947F; }
+.si-qty { display: flex; align-items: center; gap: 4px; flex: 0 0 auto; }
+.qty-btn {
+  width: 26px; height: 26px; border-radius: 9px; padding: 0;
+  border: 1px solid #E3D6C3; background: #FFFDF8; color: #8A7A69;
+  font: inherit; font-size: 13px; font-weight: 900; line-height: 1;
+}
+.qty-btn:active { transform: scale(0.94); }
+.qty-num { min-width: 18px; text-align: center; font-size: 13px; font-weight: 900; color: #5D4B3C; }
+.snack-sum { margin: 10px 0 0; padding-top: 9px; border-top: 1px dashed #F2E8DA; font-size: 11.5px; font-weight: 900; color: #A9762A; text-align: right; }
+
 /* ---------------- toast ---------------- */
 .toast {
   position: fixed; left: 50%; bottom: calc(96px + env(safe-area-inset-bottom));
@@ -722,6 +851,7 @@ textarea.note {
   <main id="main">
     <section class="tab on" id="tab-home" data-tab="home" aria-label="홈"></section>
     <section class="tab" id="tab-routine" data-tab="routine" aria-label="루틴"></section>
+    <section class="tab" id="tab-snack" data-tab="snack" aria-label="간식"></section>
     <section class="tab" id="tab-schedule" data-tab="schedule" aria-label="일정"></section>
     <section class="tab" id="tab-praise" data-tab="praise" aria-label="칭찬"></section>
     <section class="tab" id="tab-chat" data-tab="chat" aria-label="채팅"></section>
@@ -765,7 +895,8 @@ textarea.note {
   const DEFAULT_ROOM = 'fam_880716_k9x3m7';
   const DEVICE_KEYS = ['viewer', 'chatLock', 'praiseTarget', 'active'];  /* 이 기기에만 남는 설정 */
   const SHARED_KEYS = ['v', 'createdAt', 'lastSeen', 'members', 'weather', 'fixed', 'routines',
-    'todos', 'missions', 'stampLog', 'praise', 'chat', 'upgraded', 'updatedAt'];      /* 가족 모두와 나누는 기록 */
+    'todos', 'missions', 'stampLog', 'praise', 'chat', 'upgraded', 'updatedAt',
+    'snacks', 'snackCustom', 'words'];      /* 가족 모두와 나누는 기록 */
   const ROOM_ID = readRoomId();
   const DB_PATH = 'families/' + ROOM_ID + '/state';
 
@@ -883,6 +1014,261 @@ textarea.note {
 
   const CHECK_SVG = '<svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.4l3.1 3.1L13 4.6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 
+  /* ------------------------- 간식 · 각설탕 ------------------------- */
+  /* 각설탕 1개 = 당류 3g. 어린이 1일 첨가당 권장량은 약 25g(각설탕 8개)로 봐요. */
+  const SUGAR_PER_CUBE = 3;
+  const SUGAR_LIMIT = 25;
+  const SNACK_CATS = [
+    { v: 'chocolate', l: '초콜릿', emoji: '🍫' },
+    { v: 'jelly', l: '젤리', emoji: '🍬' },
+    { v: 'candy', l: '사탕', emoji: '🍭' },
+    { v: 'snack', l: '과자', emoji: '🍪' },
+    { v: 'custom', l: '직접 입력', emoji: '✏️' }
+  ];
+  const SNACK_CAT_VALUES = SNACK_CATS.map((c) => c.v);
+
+  /* 아이들이 자주 먹는 시판 간식 — [이름, 분류, 기준량, 칼로리(kcal), 당류(g)] */
+  /* 표시 값은 브랜드·중량에 따라 조금씩 달라요 (참고용 평균값). */
+  const SNACK_DB = [
+    ['가나초콜릿', 'chocolate', '1개(12g)', 60, 6.5],
+    ['ABC초콜릿', 'chocolate', '1개(4g)', 22, 2.6],
+    ['페레로로쉐', 'chocolate', '1개(12.5g)', 73, 6],
+    ['크런키', 'chocolate', '1개(15g)', 78, 8.5],
+    ['엠엔엠즈', 'chocolate', '1봉(45g)', 232, 30],
+    ['트윅스', 'chocolate', '1개(50g)', 230, 27],
+    ['스니커즈', 'chocolate', '1개(50g)', 245, 26],
+    ['킨더조이', 'chocolate', '1개(20g)', 110, 12],
+    ['킨더초콜릿', 'chocolate', '1개(12.5g)', 70, 7],
+    ['허쉬 키세스', 'chocolate', '1개(5g)', 26, 2.7],
+    ['밀카초콜릿', 'chocolate', '1개(15g)', 80, 8],
+    ['다크초콜릿', 'chocolate', '1조각(10g)', 55, 4],
+    ['초코파이', 'chocolate', '1개(39g)', 170, 14],
+    ['몽쉘', 'chocolate', '1개(30g)', 160, 12],
+    ['카스타드', 'chocolate', '1개(31g)', 135, 10],
+    ['초코송이', 'chocolate', '1봉(50g)', 265, 22],
+    ['빈츠', 'chocolate', '1봉(30g)', 160, 12],
+    ['오레오', 'chocolate', '1봉(37g)', 180, 14],
+    ['칸쵸', 'chocolate', '1봉(36g)', 170, 12],
+    ['초코하임', 'chocolate', '1봉(30g)', 155, 11],
+    ['쿠크다스', 'chocolate', '1봉(30g)', 150, 9],
+    ['하리보 골드베렌', 'jelly', '1봉(80g)', 272, 40],
+    ['하리보 스타믹스', 'jelly', '1봉(80g)', 265, 42],
+    ['마이구미', 'jelly', '1봉(67g)', 230, 30],
+    ['왕꿈틀이', 'jelly', '1봉(75g)', 250, 33],
+    ['트롤리 지구젤리', 'jelly', '1봉(30g)', 100, 17],
+    ['젤리킹', 'jelly', '1봉(50g)', 165, 22],
+    ['웰치스 후르츠젤리', 'jelly', '1봉(40g)', 135, 20],
+    ['미쯔', 'jelly', '1봉(34g)', 160, 12],
+    ['깔깔이', 'jelly', '1봉(40g)', 140, 18],
+    ['후르츠젤리', 'jelly', '1봉(45g)', 150, 21],
+    ['구미베어', 'jelly', '1봉(50g)', 170, 24],
+    ['스위트젤리', 'jelly', '1개(10g)', 33, 5.5],
+    ['젤리빈', 'jelly', '1알(2.5g)', 9, 1.6],
+    ['푸딩', 'jelly', '1개(90g)', 130, 15],
+    ['츄파춥스', 'candy', '1개(12g)', 48, 9],
+    ['마이쮸', 'candy', '1개(4g)', 15, 3],
+    ['새콤달콤', 'candy', '1개(3g)', 12, 2.6],
+    ['멘토스', 'candy', '1알(0.6g)', 2.4, 0.5],
+    ['밀크카라멜', 'candy', '1개(4.2g)', 17, 2.8],
+    ['알사탕', 'candy', '1개(5g)', 20, 4],
+    ['이클립스', 'candy', '1알(0.5g)', 2, 0.4],
+    ['스카치캔디', 'candy', '1개(5g)', 20, 3.4],
+    ['요구르트사탕', 'candy', '1개(3g)', 12, 2.4],
+    ['콜라사탕', 'candy', '1개(3g)', 11, 2.3],
+    ['바르르', 'candy', '1개(4g)', 16, 3],
+    ['캔디팝', 'candy', '1개(10g)', 40, 7],
+    ['새우깡', 'snack', '1봉(90g)', 470, 5],
+    ['포카칩', 'snack', '1봉(66g)', 360, 2],
+    ['홈런볼', 'snack', '1봉(45g)', 250, 14],
+    ['꼬깔콘', 'snack', '1봉(74g)', 355, 6],
+    ['빼빼로', 'snack', '1갑(54g)', 265, 18],
+    ['프링글스', 'snack', '1봉(30g)', 160, 1],
+    ['치토스', 'snack', '1봉(60g)', 330, 5],
+    ['에이스', 'snack', '1봉(30g)', 150, 3],
+    ['버터링', 'snack', '1봉(30g)', 145, 3],
+    ['구운감자', 'snack', '1봉(60g)', 280, 2],
+    ['자갈치', 'snack', '1봉(60g)', 300, 3],
+    ['맛동산', 'snack', '1봉(70g)', 355, 12],
+    ['오징어땅콩', 'snack', '1봉(60g)', 300, 8],
+    ['허니버터칩', 'snack', '1봉(60g)', 330, 4],
+    ['수미칩', 'snack', '1봉(60g)', 320, 2],
+    ['도리토스', 'snack', '1봉(70g)', 380, 3],
+    ['링쵸', 'snack', '1봉(50g)', 265, 5],
+    ['썬칩', 'snack', '1봉(55g)', 295, 3],
+    ['뻥튀기', 'snack', '1봉(30g)', 110, 1],
+    ['죠리퐁', 'snack', '1봉(30g)', 120, 5],
+    ['카라멜콘', 'snack', '1봉(70g)', 330, 12],
+    ['콘칩', 'snack', '1봉(70g)', 350, 4],
+    ['감자깡', 'snack', '1봉(65g)', 340, 3],
+    ['양파링', 'snack', '1봉(70g)', 350, 5],
+    ['꿀꽈배기', 'snack', '1봉(80g)', 370, 14],
+    ['다이제스티브', 'snack', '1팩(100g)', 470, 20],
+    ['웨하스', 'snack', '1봉(30g)', 150, 8],
+    ['후렌치파이', 'snack', '1개(35g)', 165, 11],
+    ['마가렛트', 'snack', '1개(20g)', 95, 6],
+    ['버터쿠키', 'snack', '1개(10g)', 50, 3]
+  ].map((r, i) => ({ id: 'snk' + i, name: r[0], cat: r[1], unit: r[2], kcal: r[3], sugar: r[4] }));
+
+  /* ------------------------- 오늘의 영어단어 ------------------------- */
+  /* 하루 5개씩 — [영단어, 뜻, 예문]. 학년 수준에 맞춰 15일(75개)씩 준비해 두고 돌아가며 보여 줘요. */
+  const WORDS_PER_DAY = 5;
+  const WORD_BANK = {
+    sia: [ /* 초등 4학년 · 11세 수준 */
+      ['adventure', '모험', 'It was a big adventure!'],
+      ['library', '도서관', 'I read books at the library.'],
+      ['weather', '날씨', 'The weather is sunny today.'],
+      ['breakfast', '아침 식사', 'I ate bread for breakfast.'],
+      ['practice', '연습하다', 'I practice piano every day.'],
+      ['neighbor', '이웃', 'Our neighbor is very kind.'],
+      ['curious', '궁금한', 'I am curious about the stars.'],
+      ['science', '과학', 'Science class is fun.'],
+      ['uniform', '교복', 'I wear a uniform to school.'],
+      ['museum', '박물관', 'We went to the museum.'],
+      ['promise', '약속', 'I keep my promise.'],
+      ['careful', '조심하는', 'Be careful on the stairs.'],
+      ['journey', '여정', 'The journey was long.'],
+      ['decide', '결정하다', 'I decide what to eat.'],
+      ['enough', '충분한', 'We have enough time.'],
+      ['celebrate', '축하하다', 'We celebrate her birthday.'],
+      ['computer', '컴퓨터', 'I use a computer for homework.'],
+      ['delicious', '맛있는', 'This soup is delicious.'],
+      ['different', '다른', 'My shoes are different.'],
+      ['exercise', '운동하다', 'I exercise after school.'],
+      ['favorite', '가장 좋아하는', 'Blue is my favorite color.'],
+      ['forest', '숲', 'The forest is quiet.'],
+      ['grow', '자라다', 'Plants grow in spring.'],
+      ['imagine', '상상하다', 'Imagine you are a bird.'],
+      ['kitchen', '부엌', 'Mom cooks in the kitchen.'],
+      ['language', '언어', 'English is a language.'],
+      ['medicine', '약', 'I take medicine when I am sick.'],
+      ['notice', '알아차리다', 'I notice a small bird.'],
+      ['ocean', '바다', 'The ocean is deep and blue.'],
+      ['prepare', '준비하다', 'I prepare my bag at night.'],
+      ['question', '질문', 'Can I ask a question?'],
+      ['remember', '기억하다', 'I remember your name.'],
+      ['season', '계절', 'Spring is my favorite season.'],
+      ['special', '특별한', 'Today is a special day.'],
+      ['together', '함께', 'We study together.'],
+      ['umbrella', '우산', 'Take an umbrella today.'],
+      ['village', '마을', 'My village is near the river.'],
+      ['welcome', '환영하다', 'Welcome to our home!'],
+      ['yesterday', '어제', 'Yesterday was Sunday.'],
+      ['visit', '방문하다', 'We visit grandma on Sunday.'],
+      ['airport', '공항', 'The airport is far away.'],
+      ['borrow', '빌리다', 'Can I borrow your pencil?'],
+      ['courage', '용기', 'It takes courage to try.'],
+      ['danger', '위험', 'Fire is a danger.'],
+      ['expensive', '비싼', 'This toy is too expensive.'],
+      ['famous', '유명한', 'She is a famous singer.'],
+      ['gentle', '다정한', 'He is gentle with animals.'],
+      ['honest', '정직한', 'Please be honest with me.'],
+      ['invite', '초대하다', 'I invite my friend to my party.'],
+      ['knowledge', '지식', 'Books give us knowledge.'],
+      ['laugh', '웃다', 'We laugh at the funny story.'],
+      ['moment', '잠깐 · 순간', 'Wait a moment, please.'],
+      ['narrow', '좁은', 'The road is narrow.'],
+      ['offer', '제안하다', 'I offer my seat to her.'],
+      ['patient', '참을성 있는', 'My teacher is patient.'],
+      ['quiet', '조용한', 'The library is quiet.'],
+      ['reason', '이유', 'What is the reason?'],
+      ['share', '나누다', 'I share my snack with my brother.'],
+      ['travel', '여행하다', 'We travel to Vietnam.'],
+      ['understand', '이해하다', 'I understand the question.'],
+      ['vegetable', '채소', 'Carrots are vegetables.'],
+      ['weight', '무게', 'The box has a heavy weight.'],
+      ['wonder', '궁금해하다', 'I wonder where he is.'],
+      ['young', '어린', 'My sister is young.'],
+      ['answer', '대답하다', 'Please answer the question.'],
+      ['beautiful', '아름다운', 'The sky is beautiful.'],
+      ['build', '짓다', 'We build a sand castle.'],
+      ['culture', '문화', 'I like Korean culture.'],
+      ['dream', '꿈', 'My dream is to be a pilot.'],
+      ['environment', '환경', 'We must protect the environment.'],
+      ['future', '미래', 'I want to be a doctor in the future.'],
+      ['healthy', '건강한', 'Fruit is healthy.'],
+      ['important', '중요한', 'Sleep is important.'],
+      ['kind', '친절한', 'She is kind to everyone.'],
+      ['listen', '듣다', 'Listen to the teacher.']
+    ],
+    ayun: [ /* 초등 3학년 · 10세 수준 */
+      ['apple', '사과', 'I eat an apple.'],
+      ['friend', '친구', 'My friend is kind.'],
+      ['school', '학교', 'I go to school.'],
+      ['happy', '행복한', 'I am happy today.'],
+      ['animal', '동물', 'A cat is an animal.'],
+      ['morning', '아침', 'Good morning!'],
+      ['pencil', '연필', 'This is my pencil.'],
+      ['water', '물', 'I drink water.'],
+      ['book', '책', 'I read a book.'],
+      ['family', '가족', 'I love my family.'],
+      ['dog', '강아지', 'The dog is running.'],
+      ['cat', '고양이', 'The cat is sleeping.'],
+      ['milk', '우유', 'I drink milk.'],
+      ['bread', '빵', 'I eat bread.'],
+      ['rain', '비', 'It is raining.'],
+      ['sun', '해', 'The sun is bright.'],
+      ['moon', '달', 'The moon is up.'],
+      ['star', '별', 'I see a star.'],
+      ['tree', '나무', 'The tree is tall.'],
+      ['flower', '꽃', 'The flower is pretty.'],
+      ['run', '달리다', 'I run fast.'],
+      ['jump', '뛰다', 'Jump up high!'],
+      ['walk', '걷다', 'We walk to the park.'],
+      ['sing', '노래하다', 'I sing a song.'],
+      ['dance', '춤추다', 'We dance together.'],
+      ['red', '빨간', 'My bag is red.'],
+      ['blue', '파란', 'The sea is blue.'],
+      ['green', '초록', 'The leaf is green.'],
+      ['yellow', '노란', 'The banana is yellow.'],
+      ['white', '하얀', 'Snow is white.'],
+      ['mother', '어머니', 'My mother cooks well.'],
+      ['father', '아버지', 'My father is tall.'],
+      ['sister', '언니 · 누나', 'My sister is five.'],
+      ['brother', '형 · 오빠', 'My brother likes games.'],
+      ['baby', '아기', 'The baby is cute.'],
+      ['house', '집', 'This is my house.'],
+      ['room', '방', 'My room is small.'],
+      ['door', '문', 'Close the door.'],
+      ['window', '창문', 'Open the window.'],
+      ['table', '탁자', 'The book is on the table.'],
+      ['rice', '밥', 'I eat rice.'],
+      ['egg', '달걀', 'I like eggs.'],
+      ['banana', '바나나', 'The banana is sweet.'],
+      ['candy', '사탕', 'I want a candy.'],
+      ['cookie', '쿠키', 'The cookie is yummy.'],
+      ['car', '자동차', 'The car is fast.'],
+      ['bus', '버스', 'I take the bus.'],
+      ['train', '기차', 'The train is long.'],
+      ['bike', '자전거', 'I ride my bike.'],
+      ['road', '길', 'The road is wide.'],
+      ['hot', '더운', 'It is hot today.'],
+      ['cold', '추운', 'It is cold.'],
+      ['big', '큰', 'The dog is big.'],
+      ['small', '작은', 'The cat is small.'],
+      ['fast', '빠른', 'He is fast.'],
+      ['eat', '먹다', 'I eat lunch.'],
+      ['drink', '마시다', 'I drink juice.'],
+      ['sleep', '자다', 'I sleep at night.'],
+      ['wash', '씻다', 'I wash my hands.'],
+      ['help', '돕다', 'I help my mom.'],
+      ['teacher', '선생님', 'My teacher is kind.'],
+      ['doctor', '의사', 'The doctor helps me.'],
+      ['police', '경찰', 'The police car is here.'],
+      ['farmer', '농부', 'The farmer grows rice.'],
+      ['cook', '요리사', 'The cook makes bread.'],
+      ['box', '상자', 'The box is open.'],
+      ['ball', '공', 'Throw the ball.'],
+      ['doll', '인형', 'My doll is pretty.'],
+      ['robot', '로봇', 'The robot can walk.'],
+      ['kite', '연', 'I fly a kite.'],
+      ['good', '좋은', 'This is good.'],
+      ['nice', '멋진', 'Your hat is nice.'],
+      ['sorry', '미안한', 'I am sorry.'],
+      ['thank', '고마워하다', 'Thank you!'],
+      ['love', '사랑하다', 'I love you.']
+    ]
+  };
+
   /* ------------------------- helpers ------------------------- */
   const pad2 = (n) => String(n).padStart(2, '0');
   const ymd = (d) => d.getFullYear() + '-' + pad2(d.getMonth() + 1) + '-' + pad2(d.getDate());
@@ -943,6 +1329,118 @@ textarea.note {
     return 'etc';
   }
   function isDayKey(v) { return /^\d{4}-\d{2}-\d{2}$/.test(String(v || '')); }
+
+  /* ---------- 간식 · 각설탕 도우미 ---------- */
+  const round1 = (n) => Math.round((Number(n) || 0) * 10) / 10;
+  function snackCatMeta(cat) {
+    for (let i = 0; i < SNACK_CATS.length; i++) if (SNACK_CATS[i].v === cat) return SNACK_CATS[i];
+    return SNACK_CATS[SNACK_CATS.length - 1];
+  }
+  function normSnackCat(cat) { return SNACK_CAT_VALUES.indexOf(cat) >= 0 ? cat : 'custom'; }
+  /* 한글 이름의 첫소리(초성)만 뽑아서 'ㅎㄹㅂ' 같은 검색도 되게 해요 */
+  function chosung(s) {
+    const cho = ['ㄱ', 'ㄲ', 'ㄴ', 'ㄷ', 'ㄸ', 'ㄹ', 'ㅁ', 'ㅂ', 'ㅃ', 'ㅅ', 'ㅆ', 'ㅇ', 'ㅈ', 'ㅉ', 'ㅊ', 'ㅋ', 'ㅌ', 'ㅍ', 'ㅎ'];
+    let out = '';
+    const t = String(s || '');
+    for (let i = 0; i < t.length; i++) {
+      const c = t.charCodeAt(i);
+      if (c >= 0xAC00 && c <= 0xD7A3) out += cho[Math.floor((c - 0xAC00) / 588)];
+      else if (c >= 0x3131 && c <= 0x314E) out += t.charAt(i);
+    }
+    return out;
+  }
+  function snackMatch(item, q) {
+    const query = String(q || '').replace(/\s+/g, '').toLowerCase();
+    if (!query) return true;
+    const flat = String(item.name || '').replace(/\s+/g, '').toLowerCase();
+    if (flat.indexOf(query) >= 0) return true;
+    if (/^[\u3131-\u314E]+$/.test(query)) return chosung(item.name).indexOf(query) >= 0;
+    return false;
+  }
+  function snackDb() { return SNACK_DB.concat(state.snackCustom || []); }
+  function searchSnacks(q, limit) {
+    const out = [];
+    const db = snackDb();
+    for (let i = 0; i < db.length; i++) {
+      if (!snackMatch(db[i], q)) continue;
+      out.push(db[i]);
+      if (limit && out.length >= limit) break;
+    }
+    return out;
+  }
+  function snackDay(key, create) {
+    const k = key || tKey();
+    if (!state.snacks || typeof state.snacks !== 'object') { if (!create) return {}; state.snacks = {}; }
+    if (!state.snacks[k] || typeof state.snacks[k] !== 'object') {
+      if (!create) return {};
+      state.snacks[k] = {};
+    }
+    return state.snacks[k];
+  }
+  function snackList(memberId, key) {
+    const day = snackDay(key, true);
+    if (!Array.isArray(day[memberId])) day[memberId] = [];
+    return day[memberId];
+  }
+  /* 화면을 그릴 때는 기록을 만들지 않고 읽기만 해요 */
+  function snackListRead(memberId, key) {
+    const day = snackDay(key, false);
+    return Array.isArray(day[memberId]) ? day[memberId] : [];
+  }
+  function snackTotals(memberId, key) {
+    const list = snackListRead(memberId, key);
+    let qty = 0;
+    let kcal = 0;
+    let sugar = 0;
+    list.forEach((s) => {
+      const q = Math.max(1, toInt(s.qty, 1));
+      qty += q;
+      kcal += (Number(s.kcal) || 0) * q;
+      sugar += (Number(s.sugar) || 0) * q;
+    });
+    return { rows: list.length, qty: qty, kcal: Math.round(kcal), sugar: round1(sugar), cubes: round1(sugar / SUGAR_PER_CUBE) };
+  }
+  function sugarLevel(cubes) {
+    const c = Number(cubes) || 0;
+    if (c >= 9) return 'danger';
+    if (c >= 5) return 'warn';
+    return 'good';
+  }
+
+  /* ---------- 영단어 도우미 ---------- */
+  function wordLessons(childId) {
+    const bank = WORD_BANK[childId] || WORD_BANK.sia;
+    const out = [];
+    for (let i = 0; i + WORDS_PER_DAY <= bank.length; i += WORDS_PER_DAY) {
+      out.push(bank.slice(i, i + WORDS_PER_DAY).map((w) => ({ w: w[0], m: w[1], e: w[2] })));
+    }
+    return out;
+  }
+  function daySerial(key) {
+    const p = String(key || tKey()).split('-');
+    const d = new Date(toInt(p[0], 2026), toInt(p[1], 1) - 1, toInt(p[2], 1));
+    const base = new Date(2026, 0, 1);
+    return Math.round((d.getTime() - base.getTime()) / 86400000);
+  }
+  function wordsForDay(childId, key) {
+    const lessons = wordLessons(childId);
+    if (!lessons.length) return [];
+    const i = ((daySerial(key) % lessons.length) + lessons.length) % lessons.length;
+    return lessons[i];
+  }
+  function wordRec(memberId, key, create) {
+    const k = key || tKey();
+    if (!state.words || typeof state.words !== 'object') { if (!create) return null; state.words = {}; }
+    if (!state.words[k] || typeof state.words[k] !== 'object') { if (!create) return null; state.words[k] = {}; }
+    const day = state.words[k];
+    if (!day[memberId] || typeof day[memberId] !== 'object') { if (!create) return null; day[memberId] = { done: [], quiz: null }; }
+    if (!Array.isArray(day[memberId].done)) day[memberId].done = [];
+    return day[memberId];
+  }
+  function wordProgress(memberId, key) {
+    const rec = wordRec(memberId, key, false);
+    return rec ? { done: rec.done, quiz: rec.quiz || null } : { done: [], quiz: null };
+  }
   function missionIdxFor(childId, key) {
     const s = String(childId) + '|' + key;
     let h = 7;
@@ -961,6 +1459,9 @@ textarea.note {
   let schedFilter = 'all';
   let pendingConfirm = null;
   let toastTimer = null;
+  let snackQuery = '';
+  /* 인게임 영단어 맞추기 — 화면을 다시 그려도 문제가 그대로 남도록 여기에 둠 */
+  const quiz = { child: '', stage: 'idle', items: [], idx: 0, score: 0, streak: 0, picked: -1 };
 
   function kidsOf(st) {
     return (st || state).members.filter((m) => m.role === 'child');
@@ -988,13 +1489,16 @@ textarea.note {
       routines: {},
       todos: {},
       missions: {},
+      snacks: {},
+      snackCustom: [],
+      words: {},
       stampLog: [],
       praise: [],
       chat: [],
       chatLock: false,
       viewer: 'sia',
       upgraded: 2,
-      active: { routine: 'sia', schedule: 'sia', stamp: 'sia', cal: 'sia' },
+      active: { routine: 'sia', snack: 'sia', schedule: 'sia', stamp: 'sia', cal: 'sia' },
       praiseTarget: 'sia'
     };
     Object.keys(DEFAULT_FIXED).forEach((k) => {
@@ -1161,6 +1665,61 @@ textarea.note {
     });
     st.missions = missions;
 
+    /* 간식 기록 — 날짜 · 아이별로 이름·분류·기준량·칼로리·당류·개수만 남겨요 */
+    const snacks = {};
+    Object.keys((raw.snacks && typeof raw.snacks === 'object') ? raw.snacks : {}).forEach((day) => {
+      if (!isDayKey(day)) return;
+      const src = raw.snacks[day];
+      if (!src || typeof src !== 'object' || Array.isArray(src)) return;
+      const out = {};
+      kids.forEach((id) => {
+        out[id] = (Array.isArray(src[id]) ? src[id] : []).filter((s) => s && typeof s === 'object' && s.name).map((s) => ({
+          id: s.id || uid('sn'),
+          name: String(s.name).slice(0, 24),
+          cat: normSnackCat(s.cat),
+          unit: String(s.unit || '1개').slice(0, 12),
+          kcal: clamp(toInt(s.kcal, 0), 0, 2000),
+          sugar: round1(Math.max(0, Number(s.sugar) || 0)),
+          qty: clamp(toInt(s.qty, 1), 1, 20),
+          at: toInt(s.at, Date.now())
+        }));
+      });
+      snacks[day] = out;
+    });
+    st.snacks = snacks;
+
+    /* 직접 적어 넣은 간식 — 다음에도 검색되도록 따로 기억해요 */
+    st.snackCustom = (Array.isArray(raw.snackCustom) ? raw.snackCustom : [])
+      .filter((s) => s && typeof s === 'object' && s.name)
+      .slice(0, 40)
+      .map((s) => ({
+        id: s.id || uid('csn'),
+        name: String(s.name).slice(0, 24),
+        cat: 'custom',
+        unit: String(s.unit || '1개').slice(0, 12),
+        kcal: clamp(toInt(s.kcal, 0), 0, 2000),
+        sugar: round1(Math.max(0, Number(s.sugar) || 0))
+      }));
+
+    /* 오늘의 영단어 — 외운 단어와 퀴즈 점수만 남겨요 */
+    const words = {};
+    Object.keys((raw.words && typeof raw.words === 'object') ? raw.words : {}).forEach((day) => {
+      if (!isDayKey(day)) return;
+      const src = raw.words[day];
+      if (!src || typeof src !== 'object' || Array.isArray(src)) return;
+      const out = {};
+      kids.forEach((id) => {
+        const rec = src[id];
+        const done = (rec && Array.isArray(rec.done)) ? rec.done.filter((x) => typeof x === 'string').slice(0, 20).map((x) => String(x).slice(0, 24)) : [];
+        const q = (rec && rec.quiz && typeof rec.quiz === 'object')
+          ? { score: clamp(toInt(rec.quiz.score, 0), 0, 10), total: clamp(toInt(rec.quiz.total, WORDS_PER_DAY), 1, 10), at: toInt(rec.quiz.at, 0) }
+          : null;
+        out[id] = { done: done, quiz: q };
+      });
+      words[day] = out;
+    });
+    st.words = words;
+
     st.stampLog = (Array.isArray(raw.stampLog) ? raw.stampLog : [])
       .filter((e) => e && typeof e === 'object' && kids.indexOf(e.memberId) >= 0)
       .map((e) => ({
@@ -1203,6 +1762,7 @@ textarea.note {
     const active = (raw.active && typeof raw.active === 'object') ? raw.active : {};
     st.active = {
       routine: kids.indexOf(active.routine) >= 0 ? active.routine : kids[0],
+      snack: kids.indexOf(active.snack) >= 0 ? active.snack : kids[0],
       schedule: kids.indexOf(active.schedule) >= 0 ? active.schedule : kids[0],
       stamp: kids.indexOf(active.stamp) >= 0 ? active.stamp : kids[0],
       cal: kids.indexOf(active.cal) >= 0 ? active.cal : kids[0]
@@ -1328,7 +1888,7 @@ textarea.note {
     if (!raw || typeof raw !== 'object') return st;
     if (raw.active && typeof raw.active === 'object') {
       const kids = childIdsOf(st);
-      ['routine', 'schedule', 'stamp', 'cal'].forEach((k) => {
+      ['routine', 'snack', 'schedule', 'stamp', 'cal'].forEach((k) => {
         if (kids.indexOf(raw.active[k]) >= 0) st.active[k] = raw.active[k];
       });
     }
@@ -1604,6 +2164,7 @@ textarea.note {
   const NAV_ICONS = {
     home: '<svg viewBox="0 0 32 32" fill="none"><path d="M5 15.4 16 6l11 9.4V25a2.4 2.4 0 0 1-2.4 2.4h-4.3v-7.6h-8.6v7.6H7.4A2.4 2.4 0 0 1 5 25z" fill="#FFE3A9" stroke="#D2AC5E" stroke-width="1.7" stroke-linejoin="round"/><circle cx="16" cy="18.6" r="1.7" fill="#D2AC5E"/></svg>',
     routine: '<svg viewBox="0 0 32 32" fill="none"><rect x="6" y="5" width="20" height="22" rx="5.5" fill="#CFE7FA" stroke="#7FB4D8" stroke-width="1.7"/><path d="M10.6 12.6l2.3 2.3 4.2-4.2" stroke="#3F7FA8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M10.6 21h10.2" stroke="#7FB4D8" stroke-width="2" stroke-linecap="round"/></svg>',
+    snack: '<svg viewBox="0 0 32 32" fill="none"><rect x="9.5" y="9.5" width="13" height="13" rx="6.5" fill="#FFE0EA" stroke="#D98BA6" stroke-width="1.7"/><path d="M9.5 13.2 5.6 9.9c-.7-.6-1.7.1-1.3 1l1.4 4.1-1.4 4.1c-.4.9.6 1.6 1.3 1l3.9-3.3M22.5 13.2l3.9-3.3c.7-.6 1.7.1 1.3 1l-1.4 4.1 1.4 4.1c.4.9-.6 1.6-1.3 1l-3.9-3.3" stroke="#D98BA6" stroke-width="1.7" stroke-linejoin="round"/><circle cx="16" cy="16" r="1.6" fill="#D98BA6"/></svg>',
     schedule: '<svg viewBox="0 0 32 32" fill="none"><rect x="5" y="8" width="22" height="19" rx="5.5" fill="#FFDCE6" stroke="#DE9BAE" stroke-width="1.7"/><path d="M5 14.4h22" stroke="#DE9BAE" stroke-width="1.7"/><path d="M11 5v5M21 5v5" stroke="#C98098" stroke-width="2.2" stroke-linecap="round"/><circle cx="16" cy="20.6" r="1.8" fill="#C98098"/></svg>',
     praise: '<svg viewBox="0 0 32 32" fill="none"><path d="M16 5.4l3.3 6.8 7.5 1.1-5.4 5.3 1.3 7.4L16 22.5l-6.7 3.5 1.3-7.4-5.4-5.3 7.5-1.1z" fill="#FFE28A" stroke="#DDB553" stroke-width="1.7" stroke-linejoin="round"/></svg>',
     chat: '<svg viewBox="0 0 32 32" fill="none"><path d="M6 13.6A7.6 7.6 0 0 1 13.6 6h4.8A7.6 7.6 0 0 1 26 13.6v3.2A7.6 7.6 0 0 1 18.4 24.4H14l-5.3 3.6a.85.85 0 0 1-1.3-.8v-3.3A7.6 7.6 0 0 1 6 17z" fill="#E6DDF7" stroke="#A992D0" stroke-width="1.7" stroke-linejoin="round"/><circle cx="12.6" cy="15.4" r="1.5" fill="#8B72BE"/><circle cx="16.4" cy="15.4" r="1.5" fill="#8B72BE"/><circle cx="20.2" cy="15.4" r="1.5" fill="#8B72BE"/></svg>'
@@ -1612,6 +2173,7 @@ textarea.note {
   const TABS = [
     { id: 'home', label: '홈' },
     { id: 'routine', label: '루틴' },
+    { id: 'snack', label: '간식' },
     { id: 'schedule', label: '일정' },
     { id: 'praise', label: '칭찬' },
     { id: 'chat', label: '채팅' }
@@ -1778,6 +2340,7 @@ textarea.note {
         '</div>' +
       '</div>' +
       childChipsHTML('routine-member', active.id) +
+      wordCardHTML(active) +
       '<div class="card kid-routine tone-' + active.tone + '">' +
         '<div class="rt-head">' +
           '<span class="avatar sm tone-' + active.tone + '">' + avatarSVG(active.avatar) + '</span>' +
@@ -1789,8 +2352,7 @@ textarea.note {
         '</div>' +
         routineSectionHTML(active, KIND_STUDY, study) +
         routineSectionHTML(active, KIND_LIFE, life) +
-      '</div>' +
-      timerCardHTML();
+      '</div>';
   }
 
   function routineSectionHTML(m, kind, items) {
@@ -1822,12 +2384,201 @@ textarea.note {
     '</div>';
   }
 
-  function timerCardHTML() {
-    return '<div class="card timer-card">' +
-      '<div class="card-head"><h2>⏳ 집중 타이머</h2></div>' +
-      '<p class="card-desc">숙제할 때 남은 시간을 재거나, 공부한 시간을 재어 볼 수 있어요</p>' +
-      '<div class="timer-box" id="timerBody">' + timerHTML() + '</div>' +
+  /* ------------------------- render: routine — 오늘의 영단어 ------------------------- */
+  function gradeLabel(m) {
+    const gm = String(m.sub || '').match(/초등\s*(\d)학년/);
+    return gm ? '초등 ' + gm[1] + '학년' : '우리 아이';
+  }
+
+  function wordRowHTML(item, done) {
+    return '<div class="word-row ' + (done ? 'done' : '') + '">' +
+      '<div class="word-body">' +
+        '<p class="word-en">' + esc(item.w) +
+          '<button class="speak" type="button" data-act="speak-word" data-w="' + esc(item.w) + '" aria-label="' + esc(item.w) + ' 발음 듣기">🔊</button></p>' +
+        '<p class="word-meaning">' + esc(item.m) + '</p>' +
+        '<p class="word-ex">' + esc(item.e) + '</p>' +
+      '</div>' +
+      '<button class="word-check ' + (done ? 'on' : '') + '" type="button" data-act="toggle-word" data-w="' + esc(item.w) + '" aria-pressed="' + (done ? 'true' : 'false') + '">' +
+        (done ? '✓ 외웠어요' : '외웠어요') + '</button>' +
     '</div>';
+  }
+
+  function quizDotsHTML() {
+    let out = '<div class="quiz-dots">';
+    for (let i = 0; i < quiz.items.length; i++) {
+      out += '<span class="quiz-dot ' + (i < quiz.idx ? 'past' : (i === quiz.idx ? 'now' : 'next')) + '"></span>';
+    }
+    return out + '</div>';
+  }
+
+  function quizBoxHTML(m) {
+    if (quiz.child !== m.id || quiz.stage === 'idle') return '';
+    if (quiz.stage === 'result') {
+      const total = quiz.items.length;
+      const sc = quiz.score;
+      const msg = sc >= total ? '완벽해요! 오늘 단어를 다 외웠네요 🌟'
+        : sc >= total - 1 ? '아주 잘했어요! 한 문제만 더 맞히면 만점 ✨'
+          : sc >= Math.ceil(total / 2) ? '잘했어요! 틀린 단어를 한 번 더 읽어 봐요'
+            : '괜찮아요! 오늘 단어를 다시 보고 또 도전해 봐요 🌱';
+      const rec = wordProgress(m.id, tKey());
+      const claimed = !!(rec.quiz && rec.quiz.at);
+      return '<div class="quiz-box">' +
+        '<p class="quiz-emoji">🎉</p>' +
+        '<p class="quiz-score">' + total + '문제 중 <b>' + sc + '</b>개 맞혔어요</p>' +
+        '<p class="quiz-msg">' + msg + '</p>' +
+        '<div class="row-2">' +
+          '<button class="btn btn-ghost" type="button" data-act="quiz-again" data-member="' + m.id + '">🔁 한 번 더</button>' +
+          '<button class="btn ' + (claimed ? 'btn-ghost' : 'btn-pink') + '" type="button" data-act="quiz-stamp" data-member="' + m.id + '"' + (claimed ? ' disabled' : '') + '>' +
+            (claimed ? '✓ 오늘 도장 받음' : '💮 도장 받기') + '</button>' +
+        '</div>' +
+      '</div>';
+    }
+    const it = quiz.items[quiz.idx];
+    const picked = quiz.picked;
+    const answered = picked >= 0;
+    const right = picked === it.answer;
+    let opts = '';
+    it.opts.forEach((o, i) => {
+      let cls = 'quiz-opt';
+      if (answered && i === it.answer) cls += ' right';
+      else if (answered && i === picked) cls += ' wrong';
+      opts += '<button class="' + cls + '" type="button" data-act="quiz-answer" data-idx="' + i + '">' + esc(it.dir === 'e2m' ? o.m : o.w) + '</button>';
+    });
+    const prompt = it.dir === 'e2m' ? it.word.w : it.word.m;
+    const ask = it.dir === 'e2m' ? '이 영단어의 뜻은?' : '이 뜻에 맞는 영단어는?';
+    return '<div class="quiz-box">' +
+      '<div class="quiz-top">' + quizDotsHTML() + '<span class="quiz-count">' + (quiz.idx + 1) + ' / ' + quiz.items.length + ' · 점수 ' + quiz.score + '</span></div>' +
+      '<p class="quiz-ask">' + ask + '</p>' +
+      '<p class="quiz-prompt">' + esc(prompt) + '</p>' +
+      '<div class="quiz-opts">' + opts + '</div>' +
+      (answered
+        ? '<p class="quiz-feedback ' + (right ? 'ok' : 'no') + '">' +
+            (right ? '정답이에요! 🎯 연속 ' + quiz.streak + '개' : '아쉬워요! 정답은 "' + esc(it.dir === 'e2m' ? it.word.m : it.word.w) + '"') + '</p>' +
+          '<button class="btn btn-sky btn-block" type="button" data-act="quiz-next" data-member="' + m.id + '">' +
+            (quiz.idx + 1 < quiz.items.length ? '다음 문제 →' : '결과 보기 →') + '</button>'
+        : '<p class="quiz-feedback">보기에서 골라 보세요</p>') +
+    '</div>';
+  }
+
+  function wordCardHTML(m) {
+    const key = tKey();
+    const list = wordsForDay(m.id, key);
+    const prog = wordProgress(m.id, key);
+    const doneN = list.filter((w) => prog.done.indexOf(w.w) >= 0).length;
+    const pct = list.length ? Math.round((doneN / list.length) * 100) : 0;
+    return '<div class="card word-card tone-' + m.tone + '">' +
+      '<div class="card-head"><h2>📖 오늘의 영어단어 5개</h2>' +
+        '<span class="pill-count">' + esc(gradeLabel(m)) + ' · ' + doneN + '/' + list.length + ' 외움</span></div>' +
+      '<p class="card-desc">' + esc(m.name) + ' 수준에 맞춘 단어예요 · 뜻과 예문을 소리 내어 읽고, 🔊 로 발음을 들어 봐요</p>' +
+      '<div class="word-list">' + list.map((w) => wordRowHTML(w, prog.done.indexOf(w.w) >= 0)).join('') + '</div>' +
+      '<div class="progress-line"><div class="bar"><i style="width:' + pct + '%"></i></div><span>' + doneN + ' / ' + list.length + ' 외웠어요</span></div>' +
+      '<button class="btn btn-mint btn-block" type="button" data-act="quiz-start" data-member="' + m.id + '" style="margin-top:10px">🎮 영단어 맞추기 인게임</button>' +
+      quizBoxHTML(m) +
+    '</div>';
+  }
+
+  /* ------------------------- render: snack ------------------------- */
+  function cubesHTML(cubes, hasItems) {
+    const n = Math.min(24, Math.ceil(Math.max(0, Number(cubes) || 0)));
+    let out = '<div class="cube-wall' + (sugarLevel(cubes) === 'danger' ? ' hot' : '') + '">';
+    if (!hasItems) out += '<span class="cube-note">오늘 먹은 간식이 없어요 — 각설탕 0개</span>';
+    for (let i = 0; i < n; i++) out += '<span class="cube" aria-hidden="true"></span>';
+    if (cubes > n) out += '<span class="cube-more">+' + Math.round(cubes - n) + '</span>';
+    return out + '</div>';
+  }
+
+  const SNACK_QUICK_PICK = ['가나초콜릿', '하리보 골드베렌', '새우깡', '츄파춥스', '포카칩', '마이구미', '초코파이', '홈런볼'];
+
+  function snackHits() {
+    if (!String(snackQuery).trim()) {
+      const out = [];
+      SNACK_QUICK_PICK.forEach((name) => {
+        const hit = snackDb().find((s) => s.name === name);
+        if (hit) out.push(hit);
+      });
+      return out;
+    }
+    return searchSnacks(snackQuery, 8);
+  }
+
+  function snackResultsHTML() {
+    const hits = snackHits();
+    if (!hits.length) {
+      return '<div class="snack-none">"' + esc(snackQuery) + '" 를 찾지 못했어요<br>오른쪽 위 <b>+ 직접 입력</b>으로 칼로리·당류를 적어 넣을 수 있어요</div>';
+    }
+    return '<p class="snack-hint">' + (String(snackQuery).trim() ? '검색 결과 ' + hits.length + '개' : '자주 먹는 간식이에요 · 이름을 검색해 보세요') + '</p>' +
+      hits.map((it) => {
+        const meta = snackCatMeta(it.cat);
+        return '<button class="snack-hit" type="button" data-act="snack-add" data-id="' + esc(it.id) + '">' +
+          '<span class="hit-emoji" aria-hidden="true">' + meta.emoji + '</span>' +
+          '<span class="hit-body"><span class="hit-name">' + esc(it.name) + '</span>' +
+            '<span class="hit-meta">' + esc(it.unit) + ' · ' + toInt(it.kcal, 0) + ' kcal · 당류 ' + round1(it.sugar) + 'g</span></span>' +
+          '<span class="hit-add">+</span></button>';
+      }).join('');
+  }
+
+  function snackItemHTML(s) {
+    const meta = snackCatMeta(s.cat);
+    const q = Math.max(1, toInt(s.qty, 1));
+    const kcal = Math.round((Number(s.kcal) || 0) * q);
+    const sugar = round1((Number(s.sugar) || 0) * q);
+    return '<div class="snack-item">' +
+      '<span class="si-emoji" aria-hidden="true">' + meta.emoji + '</span>' +
+      '<div class="si-body">' +
+        '<p class="si-name">' + esc(s.name) + ' <span class="si-unit">' + esc(s.unit) + '</span></p>' +
+        '<p class="si-meta">' + kcal + ' kcal · 당류 ' + sugar + 'g · 각설탕 ' + round1(sugar / SUGAR_PER_CUBE) + '개</p>' +
+      '</div>' +
+      '<div class="si-qty">' +
+        '<button class="qty-btn" type="button" data-act="snack-minus" data-id="' + s.id + '" aria-label="하나 빼기">−</button>' +
+        '<span class="qty-num">' + q + '</span>' +
+        '<button class="qty-btn" type="button" data-act="snack-plus" data-id="' + s.id + '" aria-label="하나 더">+</button>' +
+      '</div>' +
+      '<button class="mini mini-x" type="button" data-act="snack-del" data-id="' + s.id + '" aria-label="삭제">✕</button>' +
+    '</div>';
+  }
+
+  function snackHTML() {
+    const key = tKey();
+    const m = safeChild(state.active.snack);
+    const t = snackTotals(m.id, key);
+    const list = snackListRead(m.id, key);
+    const level = sugarLevel(t.cubes);
+    const limitCubes = Math.round(SUGAR_LIMIT / SUGAR_PER_CUBE);
+    const limitPct = Math.min(100, Math.round((t.cubes / limitCubes) * 100));
+    const badge = level === 'danger' ? '경고' : (level === 'warn' ? '주의' : '양호');
+    const msg = level === 'danger'
+      ? '🚨 각설탕 ' + limitCubes + '개를 넘었어요! 오늘은 그만 먹고 물 한 잔 마셔요'
+      : level === 'warn'
+        ? '⚠️ 각설탕 5개를 넘었어요. 남은 간식은 내일로 미뤄 볼까요?'
+        : '🌱 오늘은 아직 괜찮아요. 다음 간식은 물 한 잔과 함께 먹어요';
+    return childChipsHTML('snack-member', m.id) +
+      '<div class="card snack-summary level-' + level + '">' +
+        '<div class="card-head"><h2>🍬 ' + esc(m.name) + ' 간식 각설탕</h2><span class="snack-badge level-' + level + '">' + badge + '</span></div>' +
+        '<p class="card-desc">각설탕 1개 = 당류 3g 기준 · 어린이 1일 첨가당 권장량은 약 ' + SUGAR_LIMIT + 'g(각설탕 ' + limitCubes + '개)이에요</p>' +
+        '<div class="snack-stats">' +
+          '<div class="snack-stat"><span class="ss-num">' + t.qty + '</span><span class="ss-label">먹은 개수</span></div>' +
+          '<div class="snack-stat"><span class="ss-num">' + t.kcal + '</span><span class="ss-label">칼로리(kcal)</span></div>' +
+          '<div class="snack-stat"><span class="ss-num">' + t.sugar + '</span><span class="ss-label">당류(g)</span></div>' +
+          '<div class="snack-stat big"><span class="ss-num">' + t.cubes + '</span><span class="ss-label">각설탕(개)</span></div>' +
+        '</div>' +
+        cubesHTML(t.cubes, t.rows > 0) +
+        '<div class="limit-line"><div class="bar"><i style="width:' + limitPct + '%"></i></div><span>1일 기준 ' + limitPct + '%</span></div>' +
+        '<p class="snack-alert level-' + level + '">' + msg + '</p>' +
+      '</div>' +
+      '<div class="card">' +
+        '<div class="card-head"><h2>🔍 간식 찾기</h2><button class="btn btn-ghost btn-tiny" type="button" data-act="open-add-snack">+ 직접 입력</button></div>' +
+        '<p class="card-desc">초콜릿 · 젤리 · 사탕 · 과자 이름을 검색해요 (초성도 돼요)</p>' +
+        '<input class="snack-search" id="snackSearch" type="search" value="' + esc(snackQuery) + '" placeholder="예: 하리보, 가나, ㅅㅇㄲ" data-input="snack-search" aria-label="간식 검색">' +
+        '<div class="snack-results" id="snackResults">' + snackResultsHTML() + '</div>' +
+      '</div>' +
+      '<div class="card snack-day tone-' + m.tone + '">' +
+        '<div class="card-head"><h2>🍽️ ' + esc(m.name) + ' 오늘 먹은 간식</h2><span class="pill-count">' + list.length + '가지</span></div>' +
+        '<p class="card-desc">같은 간식을 더 먹었으면 + 를 눌러 개수를 늘려요</p>' +
+        (list.length
+          ? list.map(snackItemHTML).join('')
+          : '<div class="empty"><span class="emoji">🍪</span>아직 기록한 간식이 없어요<br>위에서 검색해 추가해 보세요</div>') +
+        (list.length ? '<p class="snack-sum">합계 · ' + t.qty + '개 · ' + t.kcal + ' kcal · 당류 ' + t.sugar + 'g · 각설탕 ' + t.cubes + '개</p>' : '') +
+      '</div>';
   }
 
   /* ------------------------- render: schedule ------------------------- */
@@ -1936,6 +2687,7 @@ textarea.note {
   function kindLabel(kind) {
     if (kind === 'praise') return '칭찬 도장';
     if (kind === 'mission') return '미션 도장';
+    if (kind === 'word') return '영단어 퀴즈';
     return '루틴 완료';
   }
 
@@ -2052,6 +2804,7 @@ textarea.note {
     renderTabbar();
     setHTML('#tab-home', homeHTML());
     setHTML('#tab-routine', routineHTML());
+    setHTML('#tab-snack', snackHTML());
     setHTML('#tab-schedule', scheduleHTML());
     setHTML('#tab-praise', praiseHTML());
     setHTML('#tab-chat', chatHTML());
@@ -2454,158 +3207,225 @@ textarea.note {
     return { member: safeMember(memberId), list: list, index: idx, item: list[idx], day: dayKey };
   }
 
-  /* ------------------------- timer ------------------------- */
-  const timer = { mode: 'down', minutes: 10, remaining: 600, elapsed: 0, running: false, endAt: 0, startAt: 0, base: 0, iv: null, audio: null };
+  /* ------------------------- 간식 · 영단어 동작 ------------------------- */
+  function addSnackItem(item, memberId) {
+    const m = safeChild(memberId || state.active.snack);
+    const list = snackList(m.id, tKey());
+    const same = list.find((s) => s.name === item.name && s.unit === item.unit);
+    if (same) same.qty = clamp(toInt(same.qty, 1) + 1, 1, 20);
+    else list.push({
+      id: uid('sn'),
+      name: String(item.name).slice(0, 24),
+      cat: normSnackCat(item.cat),
+      unit: String(item.unit || '1개').slice(0, 12),
+      kcal: clamp(toInt(item.kcal, 0), 0, 2000),
+      sugar: round1(Math.max(0, Number(item.sugar) || 0)),
+      qty: 1,
+      at: Date.now()
+    });
+    return m;
+  }
 
-  function fmtClock(sec) {
-    const s = Math.max(0, Math.floor(sec));
-    const h = Math.floor(s / 3600);
-    const m = Math.floor((s % 3600) / 60);
-    const r = s % 60;
-    return h > 0 ? h + ':' + pad2(m) + ':' + pad2(r) : pad2(m) + ':' + pad2(r);
+  function addSnackById(id) {
+    const item = snackDb().find((s) => s.id === id);
+    if (!item) return;
+    const m = addSnackItem(item);
+    const t = snackTotals(m.id, tKey());
+    render();
+    toast('🍬 ' + item.name + ' 추가 · 오늘 각설탕 ' + t.cubes + '개');
   }
-  function timerSeconds() { return timer.mode === 'down' ? timer.remaining : timer.elapsed; }
-  function timerHintText() {
-    if (timer.running) return timer.mode === 'down' ? '집중하는 중... 화이팅!' : '재는 중... 화이팅!';
-    return timer.mode === 'down' ? timer.minutes + '분 · 시작을 눌러요' : '시작을 누르면 시간을 재요';
+
+  function findSnack(id) {
+    const m = safeChild(state.active.snack);
+    const list = snackListRead(m.id, tKey());
+    const i = list.findIndex((s) => s.id === id);
+    return i < 0 ? null : { member: m, list: list, index: i, item: list[i] };
   }
-  function timerHTML() {
-    const secs = timerSeconds();
-    return '<div class="timer-tabs">' +
-        '<button type="button" data-act="timer-mode" data-mode="down" class="' + (timer.mode === 'down' ? 'on' : '') + '">⏳ 남은 시간</button>' +
-        '<button type="button" data-act="timer-mode" data-mode="up" class="' + (timer.mode === 'up' ? 'on' : '') + '">⏱️ 재는 시간</button>' +
-      '</div>' +
-      '<p class="timer-hint" id="timerHint">' + timerHintText() + '</p>' +
-      '<p class="timer-display' + (timer.mode === 'down' && secs === 0 ? ' done' : '') + '" id="timerDisplay">' + fmtClock(secs) + '</p>' +
-      '<div class="row-2" style="margin-top:14px">' +
-        '<button class="btn btn-mint" type="button" data-act="timer-toggle" id="timerToggle">' + (timer.running ? '⏸ 일시정지' : '▶ 시작') + '</button>' +
-        '<button class="btn btn-ghost" type="button" data-act="timer-reset">↺ 초기화</button>' +
-      '</div>' +
-      '<div class="preset-row">' +
-        [10, 20, 30].map((mm) => '<button type="button" class="chip ' + (timer.mode === 'down' && timer.minutes === mm ? 'on' : '') + '" data-act="timer-preset" data-min="' + mm + '">' + mm + '분</button>').join('') +
-        '<label class="custom-min"><input id="customMin" type="number" min="1" max="180" inputmode="numeric" placeholder="직접" aria-label="직접 분 입력"><span>분</span></label>' +
-        '<button type="button" class="btn btn-sky btn-tiny" data-act="timer-custom">맞추기</button>' +
-      '</div>';
+
+  function bumpSnack(id, delta) {
+    const found = findSnack(id);
+    if (!found) return;
+    found.item.qty = clamp(toInt(found.item.qty, 1) + delta, 1, 20);
+    const t = snackTotals(found.member.id, tKey());
+    render();
+    toast(found.item.name + ' ' + found.item.qty + '개 · 각설탕 ' + t.cubes + '개');
   }
-  function renderTimerBody() {
-    const el = qs('#timerBody');
-    if (el) el.innerHTML = timerHTML();
+
+  function delSnack(id) {
+    const found = findSnack(id);
+    if (!found) return;
+    found.list.splice(found.index, 1);
+    render();
+    toast('간식 기록을 지웠어요');
   }
-  function updateTimerDisplay() {
-    const d = qs('#timerDisplay');
-    const h = qs('#timerHint');
-    if (d) {
-      d.textContent = fmtClock(timerSeconds());
-      d.classList.toggle('done', timer.mode === 'down' && timer.remaining === 0);
+
+  function openAddSnack() {
+    const m = safeChild(state.active.snack);
+    openModal({
+      title: '✏️ 간식 직접 입력',
+      label: '간식 직접 입력',
+      body: '<p class="form-note">' + esc(m.name) + '가 먹은 간식이 목록에 없으면 이름과 칼로리·당류를 적어 주세요. 과자 포장지의 영양정보를 보면 돼요.</p>' +
+        fieldInput('name', '간식 이름', '', '예: 할머니표 쿠키') +
+        '<div class="row-2">' + fieldInput('kcal', '칼로리(kcal)', '', '150', 'number') + fieldInput('sugar', '당류(g)', '', '12', 'number') + '</div>' +
+        fieldInput('qty', '몇 개 먹었나요', 1, '1', 'number') +
+        '<p class="form-err" data-err hidden></p>',
+      footer: '<button class="btn btn-ghost" type="button" data-act="close-modal">취소</button>' +
+        '<button class="btn btn-sky" type="button" data-act="save-add-snack">추가</button>'
+    });
+  }
+
+  function saveAddSnack() {
+    const root = qs('#modalRoot');
+    const v = readFields(root);
+    if (!v.name) {
+      const err = qs('[data-err]', root);
+      if (err) { err.textContent = '간식 이름을 적어 주세요'; err.hidden = false; }
+      return;
     }
-    if (h) h.textContent = timerHintText();
+    const item = {
+      id: uid('csn'), name: v.name.slice(0, 24), cat: 'custom', unit: '1개',
+      kcal: clamp(toInt(v.kcal, 0), 0, 2000), sugar: round1(Math.max(0, Number(v.sugar) || 0))
+    };
+    if (!Array.isArray(state.snackCustom)) state.snackCustom = [];
+    if (!state.snackCustom.some((s) => s.name === item.name)) {
+      state.snackCustom.unshift(item);
+      if (state.snackCustom.length > 40) state.snackCustom.length = 40;
+    }
+    const m = addSnackItem(item);
+    const qty = clamp(toInt(v.qty, 1), 1, 20);
+    const list = snackList(m.id, tKey());
+    const last = list[list.length - 1];
+    if (qty > 1 && last && last.name === item.name) last.qty = qty;
+    closeModal();
+    render();
+    toast('✏️ ' + item.name + ' 추가했어요');
   }
-  function beep() {
+
+  function speakWord(w) {
     try {
-      if (!timer.audio) {
-        const Ctx = window.AudioContext || window.webkitAudioContext;
-        if (Ctx) timer.audio = new Ctx();
+      const syn = (typeof window !== 'undefined') ? window.speechSynthesis : null;
+      const Utter = (typeof window !== 'undefined') ? window.SpeechSynthesisUtterance : null;
+      if (!syn || typeof syn.speak !== 'function' || typeof Utter !== 'function') {
+        toast('이 브라우저에서는 발음 소리를 들을 수 없어요');
+        return;
       }
-      const ctx = timer.audio;
-      if (!ctx) return;
-      if (ctx.state === 'suspended' && ctx.resume) ctx.resume();
-      const o = ctx.createOscillator();
-      const g = ctx.createGain();
-      o.type = 'sine';
-      o.frequency.value = 880;
-      o.connect(g);
-      g.connect(ctx.destination);
-      const t = ctx.currentTime;
-      g.gain.setValueAtTime(0.0001, t);
-      g.gain.exponentialRampToValueAtTime(0.2, t + 0.02);
-      g.gain.exponentialRampToValueAtTime(0.0001, t + 0.9);
-      o.start(t);
-      o.stop(t + 1);
-    } catch (e) { /* 소리는 없어도 괜찮아요 */ }
-    if (navigator.vibrate) { try { navigator.vibrate([120, 80, 120]); } catch (e) { } }
+      syn.cancel();
+      const u = new Utter(String(w));
+      u.lang = 'en-US';
+      u.rate = 0.85;
+      syn.speak(u);
+    } catch (e) { toast('발음 소리를 들을 수 없어요'); }
   }
-  function timerTick() {
-    const now = Date.now();
-    if (timer.mode === 'down') {
-      timer.remaining = Math.max(0, Math.ceil((timer.endAt - now) / 1000));
-      if (timer.remaining <= 0) { finishTimer(); return; }
+
+  function toggleWord(w) {
+    const m = safeChild(state.active.routine);
+    const key = tKey();
+    const rec = wordRec(m.id, key, true);
+    const i = rec.done.indexOf(w);
+    if (i >= 0) rec.done.splice(i, 1);
+    else rec.done.push(w);
+    const list = wordsForDay(m.id, key);
+    const doneN = list.filter((x) => rec.done.indexOf(x.w) >= 0).length;
+    render();
+    toast(i >= 0 ? '체크를 풀었어요'
+      : (list.length && doneN >= list.length ? '🎉 오늘 단어 ' + list.length + '개를 다 외웠어요!' : '👍 ' + w + ' 외웠어요'));
+  }
+
+  function quizPool(memberId) {
+    const pool = [];
+    const seen = {};
+    for (let back = 0; back < 4; back++) {
+      const d = new Date();
+      d.setDate(d.getDate() - back);
+      wordsForDay(memberId, ymd(d)).forEach((w) => {
+        if (seen[w.w]) return;
+        seen[w.w] = true;
+        pool.push(w);
+      });
+    }
+    return pool;
+  }
+
+  function shuffle(list) {
+    const a = list.slice();
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      const t = a[i];
+      a[i] = a[j];
+      a[j] = t;
+    }
+    return a;
+  }
+
+  function startQuiz(memberId) {
+    const m = safeChild(memberId || state.active.routine);
+    state.active.routine = m.id;
+    const pool = quizPool(m.id);
+    const bank = (WORD_BANK[m.id] || WORD_BANK.sia).map((w) => ({ w: w[0], m: w[1], e: w[2] })).concat(pool);
+    const picks = shuffle(pool).slice(0, 5);
+    const items = picks.map((p, i) => {
+      const used = {};
+      used[p.w] = true;
+      const distract = shuffle(bank.concat(pool)).filter((x) => {
+        if (used[x.w]) return false;
+        used[x.w] = true;
+        return true;
+      }).slice(0, 3);
+      const opts = shuffle([p].concat(distract));
+      return {
+        dir: i % 2 === 0 ? 'e2m' : 'm2e',
+        word: p,
+        opts: opts,
+        answer: opts.findIndex((o) => o.w === p.w)
+      };
+    });
+    quiz.child = m.id;
+    quiz.stage = items.length ? 'quiz' : 'idle';
+    quiz.items = items;
+    quiz.idx = 0;
+    quiz.score = 0;
+    quiz.streak = 0;
+    quiz.picked = -1;
+    currentTab = 'routine';
+    render();
+    if (items.length) toast('🎮 영단어 맞추기! 5문제예요');
+  }
+
+  function answerQuiz(idx) {
+    if (quiz.stage !== 'quiz' || quiz.picked >= 0) return;
+    const it = quiz.items[quiz.idx];
+    if (!it) return;
+    quiz.picked = clamp(toInt(idx, -1), 0, it.opts.length - 1);
+    if (quiz.picked === it.answer) {
+      quiz.score += 1;
+      quiz.streak += 1;
     } else {
-      timer.elapsed = timer.base + Math.floor((now - timer.startAt) / 1000);
+      quiz.streak = 0;
     }
-    updateTimerDisplay();
+    render();
   }
-  function startTimer() {
-    if (timer.running) return;
-    if (timer.mode === 'down' && timer.remaining <= 0) timer.remaining = timer.minutes * 60;
-    timer.running = true;
-    timer.endAt = Date.now() + timer.remaining * 1000;
-    timer.startAt = Date.now();
-    timer.base = timer.elapsed;
-    clearInterval(timer.iv);
-    timer.iv = setInterval(timerTick, 250);
-    beepInit();
-    renderTimerBody();
-    updateTimerDisplay();
+
+  function nextQuiz() {
+    if (quiz.stage !== 'quiz' || quiz.picked < 0) return;
+    if (quiz.idx + 1 < quiz.items.length) {
+      quiz.idx += 1;
+      quiz.picked = -1;
+      render();
+      return;
+    }
+    quiz.stage = 'result';
+    render();
   }
-  function beepInit() {
-    try {
-      if (!timer.audio) {
-        const Ctx = window.AudioContext || window.webkitAudioContext;
-        if (Ctx) timer.audio = new Ctx();
-      }
-    } catch (e) { }
-  }
-  function pauseTimer() {
-    if (!timer.running) return;
-    if (timer.mode === 'down') timer.remaining = Math.max(0, Math.ceil((timer.endAt - Date.now()) / 1000));
-    else timer.elapsed = timer.base + Math.floor((Date.now() - timer.startAt) / 1000);
-    timer.running = false;
-    clearInterval(timer.iv);
-    timer.iv = null;
-    renderTimerBody();
-    updateTimerDisplay();
-  }
-  function finishTimer() {
-    timer.running = false;
-    timer.remaining = 0;
-    clearInterval(timer.iv);
-    timer.iv = null;
-    renderTimerBody();
-    updateTimerDisplay();
-    beep();
-    toast('⏰ 시간 다 됐어요! 정말 잘했어요');
-  }
-  function resetTimer() {
-    clearInterval(timer.iv);
-    timer.iv = null;
-    timer.running = false;
-    timer.remaining = timer.minutes * 60;
-    timer.elapsed = 0;
-    timer.base = 0;
-    renderTimerBody();
-    updateTimerDisplay();
-  }
-  function setTimerMode(mode) {
-    if (mode !== 'down' && mode !== 'up') return;
-    clearInterval(timer.iv);
-    timer.iv = null;
-    timer.running = false;
-    timer.mode = mode;
-    if (mode === 'down') timer.remaining = timer.minutes * 60;
-    else { timer.elapsed = 0; timer.base = 0; }
-    renderTimerBody();
-    updateTimerDisplay();
-  }
-  function setPreset(min) {
-    const v = clamp(toInt(min, 10), 1, 180);
-    clearInterval(timer.iv);
-    timer.iv = null;
-    timer.running = false;
-    timer.mode = 'down';
-    timer.minutes = v;
-    timer.remaining = v * 60;
-    renderTimerBody();
-    updateTimerDisplay();
+
+  function claimQuizStamp(memberId) {
+    const m = safeChild(memberId || quiz.child || state.active.routine);
+    const rec = wordRec(m.id, tKey(), true);
+    if (rec.quiz && rec.quiz.at) { toast('오늘은 이미 도장을 받았어요'); return; }
+    const total = quiz.items.length || WORDS_PER_DAY;
+    rec.quiz = { score: quiz.score, total: total, at: Date.now() };
+    addLog(m.id, 'word', '영단어 맞추기 ' + quiz.score + '/' + total, 1);
+    render();
+    toast('💮 ' + m.name + ' 영단어 도장 +1');
   }
 
   /* ------------------------- actions ------------------------- */
@@ -2644,7 +3464,7 @@ textarea.note {
       toast('🎉 ' + safeMember(id).name + ' 미션 성공! 도장 +1');
     },
 
-    'routine-member': (el) => { state.active.routine = el.dataset.member; render(); },
+    'routine-member': (el) => { state.active.routine = el.dataset.member; quiz.stage = 'idle'; quiz.child = ''; render(); },
     'schedule-member': (el) => { state.active.schedule = el.dataset.member; render(); },
     'cat-filter': (el) => { schedFilter = el.dataset.cat || 'all'; render(); },
     'open-add-routine': (el) => openAddRoutine(el.dataset.member, el.dataset.kind),
@@ -2658,18 +3478,23 @@ textarea.note {
     'fixed-add': () => fixedAdd(),
     'fixed-del': (el) => fixedDel(el.dataset.id, el.dataset.member),
 
-    'timer-mode': (el) => setTimerMode(el.dataset.mode),
-    'timer-preset': (el) => setPreset(el.dataset.min),
-    'timer-toggle': () => { if (timer.running) pauseTimer(); else startTimer(); },
-    'timer-reset': () => resetTimer(),
-    'timer-custom': () => {
-      const inp = qs('#customMin');
-      const v = toInt(inp ? inp.value : '', 0);
-      if (!v) { toast('분을 먼저 입력해 주세요'); return; }
-      if (v < 1 || v > 180) { toast('1분에서 180분 사이로 정해 주세요'); return; }
-      setPreset(v);
-      toast(v + '분으로 맞췄어요');
-    },
+    /* 간식 */
+    'snack-member': (el) => { state.active.snack = el.dataset.member; render(); },
+    'snack-add': (el) => addSnackById(el.dataset.id),
+    'snack-plus': (el) => bumpSnack(el.dataset.id, 1),
+    'snack-minus': (el) => bumpSnack(el.dataset.id, -1),
+    'snack-del': (el) => delSnack(el.dataset.id),
+    'open-add-snack': () => openAddSnack(),
+    'save-add-snack': () => saveAddSnack(),
+
+    /* 오늘의 영어단어 */
+    'speak-word': (el) => speakWord(el.dataset.w),
+    'toggle-word': (el) => toggleWord(el.dataset.w),
+    'quiz-start': (el) => startQuiz(el.dataset.member),
+    'quiz-again': (el) => startQuiz(el.dataset.member),
+    'quiz-answer': (el) => answerQuiz(el.dataset.idx),
+    'quiz-next': () => nextQuiz(),
+    'quiz-stamp': (el) => claimQuizStamp(el.dataset.member),
 
     'open-add-todo': (el) => openAddTodo(el.dataset.member, el.dataset.day),
     'save-add-todo': () => saveAddTodo(),
@@ -2723,6 +3548,9 @@ textarea.note {
         chatDraft = '';
         praiseDraft = '';
         schedFilter = 'all';
+        snackQuery = '';
+        quiz.stage = 'idle';
+        quiz.child = '';
         render();
         toast('새로 시작했어요 🌱');
       });
@@ -2880,6 +3708,11 @@ textarea.note {
       const k = el.dataset.input;
       if (k === 'chat-draft') chatDraft = el.value;
       else if (k === 'praise-note') praiseDraft = el.value;
+      else if (k === 'snack-search') {
+        snackQuery = el.value;
+        const box = qs('#snackResults');
+        if (box) box.innerHTML = snackResultsHTML();   /* 입력 중에 초점이 풀리지 않게 결과만 다시 그려요 */
+      }
     });
 
     document.addEventListener('keydown', (e) => {
@@ -2918,6 +3751,7 @@ textarea.note {
     if (!memberIdInList(state.viewer, state.members)) state.viewer = children()[0].id;
     if (!children().some((m) => m.id === state.active.routine)) state.active.routine = children()[0].id;
     if (!children().some((m) => m.id === state.active.schedule)) state.active.schedule = children()[0].id;
+    if (!children().some((m) => m.id === state.active.snack)) state.active.snack = children()[0].id;
     if (!children().some((m) => m.id === state.active.stamp)) state.active.stamp = children()[0].id;
     if (!children().some((m) => m.id === calSet)) calSet = state.active.stamp;
     if (!children().some((m) => m.id === state.praiseTarget)) state.praiseTarget = children()[0].id;
